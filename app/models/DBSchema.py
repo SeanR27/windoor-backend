@@ -3,7 +3,12 @@ from sqlalchemy.orm import declarative_base, relationship
 
 from pydantic import BaseModel
 
-engine = create_engine("postgresql://neondb_owner:npg_AV29lwOpYcxk@ep-patient-dust-amdued2y-pooler.c-5.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require")
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+engine = create_engine(os.getenv("CONNECTION_STRING"))
 Base = declarative_base()
 
 class Player(Base):
