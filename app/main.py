@@ -9,8 +9,8 @@ def read_root():
     return {"message": "Hello from the FastAPI backend!"}
 
 origins = [
-    "http://localhost:5173", # Use the frontend local host for development
-    "myapp.com" # Use actual frontend URL for deployment
+    "http://localhost:5173", # Development
+    "https://prc-management.vercel.app/" # Deployment
 ]
 
 app.add_middleware(
