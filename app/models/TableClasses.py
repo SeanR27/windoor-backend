@@ -1,14 +1,7 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import declarative_base, relationship
 
-from pydantic import BaseModel
 
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-engine = create_engine(os.getenv("CONNECTION_STRING"))
 Base = declarative_base()
 
 class Player(Base):
@@ -26,26 +19,41 @@ class Player(Base):
     performance = Column(Integer)
     weightedScore = Column(Integer)
 
-    matches = relationship("Match", back_populates="players")
+    def __str__(self):
+        return f"Player(ID: {self.id}, Name: {self.firstName} {self.lastName})"
+
+    #matches = relationship("Match", back_populates="players")
 
 class Week(Base):
     __tablename__ = "weeks"
 
     id = Column(Integer, primary_key=True)
-    opp_id = Column(Integer, ForeignKey("opponents.id"))
+    opp_id = Column(Integer) #, ForeignKey("opponents.id")
+    date_of_month = Column(Integer)
+    month = Column(Integer)
+    year = Column(Integer)
     home_away = Column(Boolean)
     points = Column(Integer)
     delta = Column(Integer)
 
-    opponents = relationship("Opp", back_populates="weeks")
+    def __str__(self):
+        return f"Week(ID: {self.id}, Opponent ID: {self.opp_id})"
 
-class Opp(Base):
+    #opponents = relationship("Opp", back_populates="weeks")
+
+class Opponent(Base):
     __tablename__ = "opponents"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    club = Column(String)
+    team = Column(String)
+    matches = Column(Integer)
 
-    weeks = relationship("Week", back_populates="opponents")
+    def __str__(self):
+        return f"Opponent(ID: {self.id}, Club: {self.club}, Team: {self.team})"
+
+    #weeks = relationship("Week", back_populates="opponents")
+
 
 class Match(Base):
     __tablename__ = "matches"
@@ -57,20 +65,4 @@ class Match(Base):
     pairStrength = Column(Integer)
     result = Column(Integer) # (Win - 1) (Loss - 2) (Tie - 3)
 
-    players = relationship("Player", back_populates="matches")
-
-
-"""
-Table Class Schema for Conversion to JSON
-"""
-
-class WeekSchema(BaseModel):
-    id = int
-    opp_id = int
-    home_away = bool
-    points = int
-    delta = int
-
-    class Config:
-        from_attributes = True
-
+    #players = relationship("Player", back_populates="matches")

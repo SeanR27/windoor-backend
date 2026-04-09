@@ -1,12 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from .routes import MatchWeeksDBOps
+from .routes import PlayersDBOps
+from .routes import OpponentsDBOps
 
-app = FastAPI(title="App Instance Name")
+from app.models.ReturnTableClasses import makeRowList
+from app.models.Database import createTables, deleteAllTables
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello from the FastAPI backend!"}
+
+app = FastAPI(title="Windoor")
 
 origins = [
     "http://localhost:5173", # Development
@@ -20,3 +23,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(MatchWeeksDBOps.router)
+app.include_router(PlayersDBOps.router)
+app.include_router(OpponentsDBOps.router)
+
+"""
+deleteAllTables()
+createTables()
+"""
