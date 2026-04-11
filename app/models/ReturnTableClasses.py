@@ -2,6 +2,14 @@ from app.models import TableClasses
 from app.models.Database import Session
 
 def makeRowList(TableClass):
+    """
+    Function Description
+    --------------------
+    Receives a table scheme to determine which table's data is being returned to client.
+    This function queries the database for the data.
+    Each entry (table class instance) is converted into an instance of an associated table class formatted for returning data to client.
+    """
+    
     TableClass_to_ReturnClass = None
 
     if (TableClass == TableClasses.Week): TableClass_to_ReturnClass = Week_to_Return

@@ -1,9 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routes import MatchWeeksDBOps
-from .routes import PlayersDBOps
-from .routes import OpponentsDBOps
+from .routes.DBOps import router_weeks, router_players, router_opponents
 
 from app.models.ReturnTableClasses import makeRowList
 from app.models.Database import createTables, deleteAllTables
@@ -24,9 +22,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(MatchWeeksDBOps.router)
-app.include_router(PlayersDBOps.router)
-app.include_router(OpponentsDBOps.router)
+app.include_router(router_weeks)
+app.include_router(router_players)
+app.include_router(router_opponents)
 
 """
 deleteAllTables()
