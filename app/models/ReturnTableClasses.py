@@ -18,7 +18,16 @@ def makeRowList(TableClass):
 
 
     session = Session()
-    rows = session.query(TableClass).all()
+    rows = []
+
+    # BELOW IS ORDERING FOR WEEK QUERY; PLAYERS NEED ORDERING (COURT)
+    # MAY BE WORTH MOVING THIS PART TO THE INVIDUAL TABLECLASS_TO_RETURNCLASS FUNCTION
+    if (TableClass == TableClasses.Week):
+        rows = session.query(TableClasses.Week).order_by(   TableClasses.Week.year.desc(),
+                                                            TableClasses.Week.month.desc(),
+                                                            TableClasses.Week.date_of_month.desc()).all()
+    else: 
+        rows = session.query(TableClass).all()
     session.close()
 
     rowList = []
