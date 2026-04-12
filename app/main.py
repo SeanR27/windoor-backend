@@ -11,7 +11,7 @@ app = FastAPI(title="Windoor")
 
 origins = [
     "http://localhost:5173", # Development
-    "https://prc-management.vercel.app/" # Deployment
+    "https://prc-management.vercel.app" # Deployment
 ]
 
 app.add_middleware(
