@@ -6,7 +6,7 @@ from app.models.Database import Session
 
 import datetime
 
-def addWeek(opponent:str, date:str, homeAway:bool=None, delta:int=0):
+def addWeek(opponent, date, homeAway, delta):
     # Turn Opp String
     session = Session()
     oppID = session.query(Opponent).filter((Opponent.team == opponent)).first().id
@@ -29,13 +29,23 @@ def addWeek(opponent:str, date:str, homeAway:bool=None, delta:int=0):
                     home_away = homeAway,
                     delta = delta
                     )
-    
+        
     session = Session()
     session.add(weekRow)
     session.commit()
     session.close()
 
-def addPlayer(): None
+def addPlayer(firstName, lastName, court):
+
+    playerRow = Player( firstName = firstName,
+                    lastName = lastName,
+                    court = court
+                    )
+    
+    session = Session()
+    session.add(playerRow)
+    session.commit()
+    session.close()
 
 def addOpponent(club, team):
     session = Session()

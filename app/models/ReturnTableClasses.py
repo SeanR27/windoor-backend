@@ -13,7 +13,7 @@ def makeRowList(TableClass):
     TableClass_to_ReturnClass = None
 
     if (TableClass == TableClasses.Week): TableClass_to_ReturnClass = Week_to_Return
-    elif (TableClass == TableClasses.Player): TableClass_to_ReturnClass = None
+    elif (TableClass == TableClasses.Player): TableClass_to_ReturnClass = Player_to_Return
     elif (TableClass == TableClasses.Opponent): TableClass_to_ReturnClass = Opp_to_Return
 
 
@@ -33,7 +33,7 @@ def Week_to_Return(WeekObject:TableClasses.Week):
             self.id:int = WeekObject.id
 
             session = Session()
-            self.opp:str = session.query(TableClasses.Opp).filter(TableClasses.Opp.id == WeekObject.id).first()
+            self.opp:str = session.query(TableClasses.Opponent).filter(TableClasses.Opponent.id == WeekObject.opp_id).first()
             session.close()
             
             self.date_of_month:int = WeekObject.date_of_month
@@ -47,5 +47,7 @@ def Week_to_Return(WeekObject:TableClasses.Week):
             return f"Week Return Object || ID: {self.id}, Opponent: {self.opp}"
     
     return Week_ReturnClass(WeekObject)
+
+def Player_to_Return(PlayerObject:TableClasses.Player): return PlayerObject
 
 def Opp_to_Return(OppObject:TableClasses.Opponent): return OppObject

@@ -4,26 +4,6 @@ from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
-class Player(Base):
-    __tablename__ = "players"
-
-    id = Column(Integer, primary_key=True)
-    firstName = Column(String)
-    lasstName = Column(String)
-    court = Column(Integer)
-    games_total = Column(Integer)
-    position_games = Column(Integer)
-    wins = Column(Integer)
-    losses = Column(Integer)
-    ties = Column(Integer)
-    performance = Column(Integer)
-    weightedScore = Column(Integer)
-
-    def __str__(self):
-        return f"Player(ID: {self.id}, Name: {self.firstName} {self.lastName})"
-
-    #matches = relationship("Match", back_populates="players")
-
 class Week(Base):
     __tablename__ = "weeks"
 
@@ -40,6 +20,26 @@ class Week(Base):
         return f"Week(ID: {self.id}, Opponent ID: {self.opp_id})"
 
     #opponents = relationship("Opp", back_populates="weeks")
+
+class Player(Base):
+    __tablename__ = "players"
+
+    id = Column(Integer, primary_key=True)
+    firstName = Column(String)
+    lastName = Column(String)
+    court = Column(Integer)
+    games_total = Column(Integer)
+    position_games = Column(Integer)
+    wins = Column(Integer)
+    losses = Column(Integer)
+    ties = Column(Integer)
+    performance = Column(Integer)
+    weightedScore = Column(Integer)
+
+    def __str__(self):
+        return f"Player(ID: {self.id}, Name: {self.firstName} {self.lastName})"
+
+    #matches = relationship("Match", back_populates="players")
 
 class Opponent(Base):
     __tablename__ = "opponents"

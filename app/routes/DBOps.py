@@ -22,12 +22,12 @@ def getOpponents(): return makeRowList(Opponent)
 # Add DB Entry
 # ------------
 @router_weeks.get("/set")
-def setWeeks(opponent:str, date:str, homeAway:bool=None, delta:int=0):
+def setWeeks(opponent:str, date:str, homeAway:bool, delta:int=0):
     addWeek(opponent, date, homeAway, delta)
 
 @router_players.get("/set")
-def setPlayers():
-    addPlayer()
+def setPlayers(firstName:str, lastName:str, court:int):
+    addPlayer(firstName, lastName, court)
 
 @router_opponents.get("/set")
 def setOpponents(club:str, team:str):
